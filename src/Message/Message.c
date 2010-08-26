@@ -73,19 +73,16 @@ Message* Message_get_child(Message* msg)
 
 void Message_parse(Message* msg, Style* style)
 {
-	const char* msg_template = Style_get_message_template(style);
-	char id[7];
-	sprintf(id, "msg%d", msg->_id);
+	GString *str = g_string_new(Style_get_message_template(style));
+
+	const gchar* id = g_strdup_printf("msg%d", msg->_id);
+	strreplace2(str, "%_id_%", id);
+	g_free(id); //we need to free this!
 	
-	const char* p1 = strreplace(msg_template, "%_id_%", id);
-	const char* p2 = strreplace(p1, "%_message_%", msg->_text);
-	const char* p3 = strreplace(p2, "%_user_%", msg->_from);
-	const char* p4 = strreplace(p3, "%_time_%", get_time_12());
+	strreplace2(str, "%_message_%", g_markup_escape_text(msg->_text, strlen(msg->_text)));
+	strreplace2(str, "%_user_%", msg->_from);
+	strreplace2(str, "%_time_%", get_time_12());
 	
-	if(p1 != p2)free((char*)p1);
-	if(p2 != p3)free((char*)p2);
-	if(p3 != p4)free((char*)p3);
-	
-	msg->_parsed = 1;
-	msg->_parsed_text = p4;
+	msg->_parsed_text = str->str;
+	g_string_free(str, FALSE);
 }

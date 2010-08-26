@@ -16,6 +16,17 @@ const char* strreplace(const char* string, const char* match, const char* replac
 	return buff;
 }
 
+GString* strreplace2(GString* string, const char* match, const char* replace)
+{
+	gint len = strlen(match);
+	gint pos = g_strrstr(string->str, match) - string->str;
+	
+	g_string_erase(string, pos, len);
+	g_string_insert(string, pos, replace);
+	
+	return string;
+}
+
 const char* get_time_12(void)
 {
 	char* buff = (char*)malloc(10 * sizeof(char));
