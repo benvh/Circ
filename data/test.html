@@ -1,0 +1,51 @@
+<html>
+<head>
+	<script type="text/javascript">
+		function append_message(msg)
+		{
+			var obj = document.getElementById("messages");
+			obj.innerHTML = obj.innerHTML + msg;
+
+			scroll_to_bottom();
+		}
+
+		function scroll_to_bottom()
+		{
+			var obj = document.getElementById("messages");
+			window.scrollTo(0, obj.scrollHeight);		
+		}
+		
+		function delete_message(id)
+		{
+			var obj = document.getElementById("messages");
+			var msg = document.getElementById(id);
+			
+			obj.removeChild(msg);
+		}
+	</script>
+	<style type="text/css">
+		body{
+			font-size: small;
+			padding: 0;
+			margin: 0;
+		}
+		
+		.msg{
+			padding: 5px;
+			border-bottom: 1px solid gray;
+		}
+		
+		.time{
+			font-size: x-small;
+			color: gray;
+			float: right;
+			margin-top: 3px;
+		}
+	</style>
+</head>
+<body>
+	<div id="messages">
+	
+	</div>
+</body>
+</html>
