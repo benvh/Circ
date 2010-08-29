@@ -1,6 +1,7 @@
 #include "Style.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <glib.h>
 
 struct OBJ_STYLE
 {
@@ -11,32 +12,17 @@ struct OBJ_STYLE
 
 Style* Style_new(const char* name)
 {
-	FILE *f = fopen(name, "r");
-	if(!f) return NULL;
+	char* msg_style_path = g_strdup_printf("data/styles/%s.style/msg_style.html", name);	
+	GIOChannel *msg_style_file = g_io_channel_new_file(msg_style_path, "r", NULL);
+	char *msg_style_contents;
 	
-	char c;
-	int count;
-	while((c = fgetc(f)) != EOF)
-		if(c != '\n')count++;
-		
-	char* contents = (char*)malloc(count * sizeof(char));
-	int i = 0;
-	rewind(f);
-	
-	while((c = fgetc(f)) != EOF)
-	{
-		if(c != '\n')
-		{
-			contents[i] = c;
-			i++;
-		}
-	}
-	
-	fclose(f);
+	g_io_channel_read_to_end(msg_style_file, &msg_style_contents, NULL, NULL);
+	g_io_channel_close(msg_style_file);
 	
 	Style *s = (Style*)malloc(sizeof(Style));
-	s->_msg_template = (const char*)contents;
+	s->_msg_template = (const char*)msg_style_contents;
 	
+	free(msg_style_path);
 	return s;
 }
 

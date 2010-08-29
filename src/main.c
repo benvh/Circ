@@ -16,7 +16,7 @@ main (int argc, char *argv[])
 	gtk_init(&argc, &argv);
 	
 	GtkBuilder* builder = gtk_builder_new();
-	gtk_builder_add_from_file(builder, "Interface.ui", NULL);
+	gtk_builder_add_from_file(builder, "data/Interface.ui", NULL);
 
 	window = GTK_WIDGET( gtk_builder_get_object(builder, "mainWindow") );
 	scrolledwindow = GTK_WIDGET( gtk_builder_get_object(builder, "scrolledwindow1") );
@@ -25,11 +25,11 @@ main (int argc, char *argv[])
 
 	gtk_container_add(GTK_CONTAINER( scrolledwindow ), GTK_WIDGET( webview ));
 	buffer = MessageBuffer_new(10);
-	style = Style_new("style.html");
+	style = Style_new("Default");
 
 	connect_signals();
 
-	webkit_web_view_load_uri(WEBKIT_WEB_VIEW(webview), "file://test.html");
+	webkit_web_view_load_uri(WEBKIT_WEB_VIEW(webview), "file://data/styles/default.html");
 
 	gtk_widget_show_all(window);
 

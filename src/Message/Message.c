@@ -83,6 +83,6 @@ void Message_parse(Message* msg, Style* style)
 	strreplace2(str, "%_user_%", msg->_from);
 	strreplace2(str, "%_time_%", get_time_12());
 	
-	msg->_parsed_text = str->str;
-	g_string_free(str, FALSE);
+	msg->_parsed_text = g_strescape(str->str, NULL);
+	g_string_free(str, TRUE);
 }
