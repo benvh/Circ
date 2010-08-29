@@ -29,39 +29,33 @@ void on_entry_activate(GtkWidget* widget, gpointer data)
 		
 		Message_parse(msg, style);
 		
-		char *test = (char*)malloc( (strlen(Message_get_parsed_text(msg))+20)*sizeof(char));
-		sprintf(test, "append_message('%s')", Message_get_parsed_text(msg));
-		printf("%s\n", test);
+		gchar *script_add = g_strdup_printf("append_message(\"%s\")", Message_get_parsed_text(msg));
 		
-		webkit_web_view_execute_script(WEBKIT_WEB_VIEW(webview), test);
+		webkit_web_view_execute_script(WEBKIT_WEB_VIEW(webview), script_add);
 		
 		int id;
 		if((id = MessageBuffer_message_deleted(buffer)) != MESSAGEBUFFER_NO)
 		{
-			char buff[30];
-			sprintf(buff, "delete_message('msg%d')", id);
-			webkit_web_view_execute_script(WEBKIT_WEB_VIEW(webview), buff);
+			gchar *script_del = g_strdup_printf("delete_message(\"msg%d\")", id);
+			webkit_web_view_execute_script(WEBKIT_WEB_VIEW(webview), script_del);
+			g_free(script_del);
 		}
-	
-/*		char test[500];*/
-/*		//sprintf(test, "append_message('<div id=\"msg%d\">&lt;%s&gt; %s</div>')", Message_get_id(msg), Message_get_from(msg), Message_get_text(msg));*/
-/*		sprintf(test, "append_message('%s')" , strreplace("<div>%_message_%</div>", "%_message_%", Message_get_text(msg)));*/
-/*	*/
-/*		webkit_web_view_execute_script(WEBKIT_WEB_VIEW(webview), test);*/
-/*	*/
-/*		int id;*/
-/*		if((id = MessageBuffer_message_deleted(buffer)) != MESSAGEBUFFER_NO)*/
-/*		{*/
-/*			char buff[100];*/
-/*			sprintf(buff, "delete_message('msg%d')", id);*/
-/*			webkit_web_view_execute_script(WEBKIT_WEB_VIEW(webview), buff);*/
-/*		}*/
 		
 		gtk_entry_set_text(GTK_ENTRY(entry), "");
+		
+		g_free(script_add);
 	}
 }
 
 void on_webview_load_finished(GtkWidget* widget, gpointer data)
 {
-	printf("lol\n");
+
+	/* (re)load style stylesheet */
+	gchar* path = g_strdup_printf("%s.style/style.css", Style_get_name(style));
+	gchar* script = g_strdup_printf("set_stylesheet('%s')", path);
+	webkit_web_view_execute_script(WEBKIT_WEB_VIEW( webview ), script);
+	
+	g_free(path);
+	g_free(script);
+	/* ------------------------ */
 }

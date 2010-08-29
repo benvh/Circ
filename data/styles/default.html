@@ -22,29 +22,27 @@
 			
 			obj.removeChild(msg);
 		}
+		
+		function set_stylesheet(stylesheet)
+		{
+			var code = "<style id='msg_style' type='text/css'>";
+			if(stylesheet.length) code += "@import url(\"" + stylesheet +"\");";
+			code += "</style>"
+			
+			var range = document.createRange();
+			var head = document.getElementsByTagName("head").item(0);
+			range.selectNode(head);
+			
+			var documentFragment = range.createContextualFragment(code);
+			head.removeChild(document.getElementById("msg_style"));
+			head.appendChild( documentFragment );			
+		}
 	</script>
-	<style type="text/css">
-		body{
-			font-size: small;
-			padding: 0;
-			margin: 0;
-		}
-		
-		.msg{
-			padding: 5px;
-			border-bottom: 1px solid gray;
-		}
-		
-		.time{
-			font-size: x-small;
-			color: gray;
-			float: right;
-			margin-top: 3px;
-		}
+	
+	<style id="msg_style" type="text/css">
 	</style>
 </head>
 <body>
-	<h1>Lol</h1>
 	<div id="messages">
 	
 	</div>

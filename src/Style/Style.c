@@ -6,6 +6,7 @@
 struct OBJ_STYLE
 {
 	const char* _msg_template;
+	const char* _name;
 };
 
 
@@ -21,6 +22,7 @@ Style* Style_new(const char* name)
 	
 	Style *s = (Style*)malloc(sizeof(Style));
 	s->_msg_template = (const char*)msg_style_contents;
+	s->_name = (const char*)g_strdup(name);
 	
 	free(msg_style_path);
 	return s;
@@ -28,10 +30,17 @@ Style* Style_new(const char* name)
 
 void Style_destroy(Style* style)
 {
+	free(style->_msg_template);
+	free(style->_name);
 	free(style);
 }
 
 const char*	Style_get_message_template(Style* style)
 {
 	return style->_msg_template;
+}
+
+const char*	Style_get_name(Style* style)
+{
+	return style->_name;
 }

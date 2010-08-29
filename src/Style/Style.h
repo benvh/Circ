@@ -9,6 +9,7 @@ Style*			Style_new(const char* name);
 void			Style_destroy(Style* style);
 
 const char*		Style_get_message_template(Style* style);
+const char*		Style_get_name(Style* style);
 
 #endif /* __STYLE_H__ */
 
