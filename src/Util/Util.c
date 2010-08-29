@@ -18,6 +18,7 @@ const char* strreplace(const char* string, const char* match, const char* replac
 
 GString* strreplace2(GString* string, const char* match, const char* replace)
 {
+	if(!g_strrstr(string->str, match)) return string;
 	gint len = strlen(match);
 	gint pos = g_strrstr(string->str, match) - string->str;
 	

@@ -25,7 +25,7 @@ main (int argc, char *argv[])
 
 	gtk_container_add(GTK_CONTAINER( scrolledwindow ), GTK_WIDGET( webview ));
 	buffer = MessageBuffer_new(10);
-	style = Style_new("Default");
+	style = Style_new("Lol");
 
 	connect_signals();
 
