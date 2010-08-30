@@ -24,6 +24,7 @@ AC_FUNC_MALLOC
 
 AC_CONFIG_FILES([Makefile
                  src/Makefile
+                 src/Interface/Makefile
                  src/Message/Makefile
                  src/Style/Makefile
 				 src/Util/Makefile])
