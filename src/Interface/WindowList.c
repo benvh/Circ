@@ -43,9 +43,9 @@ void WindowList_add_window(WindowList* windowlist)
 	
 	gtk_widget_show_all(hbox);
 	
-	gtk_notebook_append_page(GTK_NOTEBOOK( windowlist->_notebook ), Window_get_scrolledwindow(w), hbox);
-	
 	g_array_append_val(windowlist->_windows, w);
+	
+	gtk_notebook_append_page(GTK_NOTEBOOK( windowlist->_notebook ), Window_get_scrolledwindow(w), hbox);
 }
 
 void WindowList_remove_window(WindowList* windowlist, int id)
@@ -65,6 +65,7 @@ void WindowList_set_selected_window(WindowList *windowlist, Window* window)
 
 Window* WindowList_get_window(WindowList* windowlist, int id)
 {
+	if(windowlist->_windows->len == 0) return NULL;
 	return g_array_index(windowlist->_windows, Window*, id);
 }
 

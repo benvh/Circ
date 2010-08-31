@@ -3,10 +3,14 @@
 
 #include <gtk/gtk.h>
 #include <webkit/webkit.h>
+#include "../Message/MessageBuffer.h"
+#include "../Style/Style.h"
 
 typedef struct OBJ_WINDOW Window;
 
 Window*			Window_new(int id);
+void			Window_destroy(Window* window);
+void			Window_add_message(Window* window, const gchar* text);
 GtkWidget*		Window_get_webview(Window* window);
 GtkWidget*		Window_get_scrolledwindow(Window* window);
 int				Window_get_id(Window* window);

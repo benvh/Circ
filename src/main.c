@@ -36,10 +36,10 @@ main (int argc, char *argv[])
 	entry = GTK_WIDGET( gtk_builder_get_object(builder, "entry1") );
 	tabview = GTK_WIDGET( gtk_builder_get_object(builder, "tabs") );
 	
-	buffer = MessageBuffer_new(10);
 	windowlist = WindowList_new(tabview);
 	WindowList_add_window(windowlist);
 	WindowList_add_window(windowlist);
+
 	style = Style_new("Lol");
 	
 	gtk_widget_grab_focus(entry);
