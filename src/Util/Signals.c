@@ -3,9 +3,8 @@
 
 extern GtkWidget *window;
 extern GtkWidget *entry;
-//extern GtkWidget *webview;
-//extern GtkWidget *scrolledwindow;
 extern MessageBuffer* buffer;
+extern WindowList* windowlist;
 extern Style* style;
 
 void connect_signals(void)
@@ -58,4 +57,11 @@ void on_webview_load_finished(GtkWidget* widget, gpointer data)
 /*	g_free(path);*/
 /*	g_free(script);*/
 	/* ------------------------ */
+}
+
+void on_tab_closed(GtkWidget* widget, gpointer data)
+{
+	Window* w = (Window*)data;
+	
+	printf("%d\n", Window_get_id(w));
 }

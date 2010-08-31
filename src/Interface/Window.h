@@ -6,9 +6,10 @@
 
 typedef struct OBJ_WINDOW Window;
 
-Window*			Window_new(void);
+Window*			Window_new(int id);
 GtkWidget*		Window_get_webview(Window* window);
 GtkWidget*		Window_get_scrolledwindow(Window* window);
+int				Window_get_id(Window* window);
 
 #endif /* __WINDOW_H__ */
 

@@ -5,14 +5,16 @@ struct OBJ_WINDOW
 {
 	GtkWidget* _scrolledwindow;
 	GtkWidget* _webview;
+	int _id;
 };
 
 
 
-Window* Window_new(void)
+Window* Window_new(int id)
 {
 	Window* w = (Window*)malloc(sizeof(Window));
 	
+	w->_id = id;
 	w->_webview = GTK_WIDGET( webkit_web_view_new() );
 
 	GtkAdjustment *vadjustment, *hadjustment;
@@ -35,4 +37,9 @@ GtkWidget* Window_get_webview(Window* window)
 GtkWidget* Window_get_scrolledwindow(Window* window)
 {
 	return window->_scrolledwindow;
+}
+
+int Window_get_id(Window* window)
+{
+	return window->_id;
 }
