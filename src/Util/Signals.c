@@ -62,6 +62,11 @@ void on_webview_load_finished(GtkWidget* widget, gpointer data)
 void on_tab_closed(GtkWidget* widget, gpointer data)
 {
 	Window* w = (Window*)data;
-	
-	printf("%d\n", Window_get_id(w));
+	WindowList_remove_window(windowlist, Window_get_id(w));
+}
+
+void on_switch_page(GtkWidget* notebook, GtkWidget* page, guint page_num, gpointer data)
+{
+	WindowList* wlist = (WindowList*)data;
+	WindowList_set_selected_window(wlist, WindowList_get_window(wlist, page_num));
 }
