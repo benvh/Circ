@@ -40,6 +40,18 @@ Window* Window_new(int id, const gchar* name)
 	return w;
 }
 
+void Window_destroy(Window* window)
+{
+	/* 
+	 * The webview and scrolledwindow have already been destroy due to the tab closing. 
+	 * So we don't have to destroy them anymore!
+	 */
+	 
+	printf("%s\n", window->_name);
+	MessageBuffer_destroy(window->_buffer);
+	free(window);
+}
+
 GtkWidget* Window_get_webview(Window* window)
 {
 	return window->_webview;

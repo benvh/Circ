@@ -101,12 +101,15 @@ void MessageBuffer_clear(MessageBuffer* buffer)
 {
 	Message* msg, *next;
 	msg = buffer->_msgs;
-
-	//while((next = msg->_child) != NULL)
-	while((next = Message_get_child(msg) ) != NULL)
+	
+	if(msg)
 	{
-		Message_destroy(msg);
-		msg = next;
+		//while((next = msg->_child) != NULL)
+		while((next = Message_get_child(msg) ) != NULL)
+		{
+			Message_destroy(msg);
+			msg = next;
+		}
 	}
 }
 

@@ -21,6 +21,7 @@ Message* Message_new(const char* from, const char* text, int id)
 {
 	Message* msg = (Message*)malloc(sizeof(Message));
 	
+	msg->_child = NULL;
 	msg->_from = from;
 	msg->_text = text;
 

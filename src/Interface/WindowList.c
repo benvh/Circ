@@ -54,8 +54,8 @@ void WindowList_remove_window(WindowList* windowlist, int id)
 	
 	g_array_remove_index(windowlist->_windows, id);
 	gtk_notebook_remove_page(GTK_NOTEBOOK(windowlist->_notebook), id);
-	
-//	Window_destroy(w);
+		
+	Window_destroy(w);
 }
 
 void WindowList_set_selected_window(WindowList *windowlist, Window* window)
