@@ -37,8 +37,7 @@ main (int argc, char *argv[])
 	tabview = GTK_WIDGET( gtk_builder_get_object(builder, "tabs") );
 	
 	windowlist = WindowList_new(tabview);
-	WindowList_add_window(windowlist);
-	WindowList_add_window(windowlist);
+	WindowList_add_window(windowlist, "#opers");
 
 	style = Style_new("Lol");
 	

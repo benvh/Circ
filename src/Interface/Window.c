@@ -8,17 +8,20 @@ struct OBJ_WINDOW
 {
 	GtkWidget* _scrolledwindow;
 	GtkWidget* _webview;
-	MessageBuffer* _buffer;
+	
 	int _id;
+	const gchar* _name;
+	MessageBuffer* _buffer;
 };
 
 
 
-Window* Window_new(int id)
+Window* Window_new(int id, const gchar* name)
 {
 	Window* w = (Window*)malloc(sizeof(Window));
 	
 	w->_id = id;
+	w->_name = name;
 	w->_webview = GTK_WIDGET( webkit_web_view_new() );
 	w->_buffer = MessageBuffer_new(10);
 
@@ -52,6 +55,11 @@ int Window_get_id(Window* window)
 	return window->_id;
 }
 
+const gchar* Window_get_name(Window* window)
+{
+	return window->_name;
+}
+
 void Window_add_message(Window* window, const gchar* text)
 {
 	printf("%s\n", Style_get_name(style));
@@ -70,16 +78,4 @@ void Window_add_message(Window* window, const gchar* text)
 		webkit_web_view_execute_script(WEBKIT_WEB_VIEW(window->_webview), script_del);
 		g_free(script_del);
 	}
-
-/*		MessageBuffer_add_message(buffer, msg);*/
-/*		*/
-/*		Message_parse(msg, style);*/
-/*		*/
-/*		gchar *script_add = g_strdup_printf("append_message(\"%s\")", Message_get_parsed_text(msg));*/
-/*		*/
-/*		webkit_web_view_execute_script(WEBKIT_WEB_VIEW(webview), script_add);*/
-/*		*//*		*/
-/*		gtk_entry_set_text(GTK_ENTRY(entry), "");*/
-/*		*/
-/*		g_free(script_add);*/
 }

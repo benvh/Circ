@@ -21,9 +21,9 @@ WindowList* WindowList_new(GtkWidget* notebook)
 	return wlist;
 }
 
-void WindowList_add_window(WindowList* windowlist)
+void WindowList_add_window(WindowList* windowlist, const gchar* name)
 {
-	Window* w = Window_new(windowlist->_windows->len);
+	Window* w = Window_new(windowlist->_windows->len, name);
 		
 	GtkWidget *icon, *button, *hbox = gtk_hbox_new(FALSE, 2);
 	icon = GTK_WIDGET( gtk_image_new_from_stock (GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU) );
@@ -38,7 +38,7 @@ void WindowList_add_window(WindowList* windowlist)
 	
 	gtk_container_add(GTK_CONTAINER(button), icon);
 	
-	gtk_box_pack_start(GTK_BOX( hbox ), gtk_label_new("tmp"), TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX( hbox ), gtk_label_new(name), TRUE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX( hbox ), button, FALSE, FALSE, 0);
 	
 	gtk_widget_show_all(hbox);
